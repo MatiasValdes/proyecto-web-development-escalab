@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Final Web Development</title>
+    <link href="style.css" rel="stylesheet">
+
+    <!-- Google font connection -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <button id="button_top" title="Go to top">&#8593</button>
+    <header>
+        <h1>Buscardor de GIF</h1>
+        <div id="header_content_search" class="header_content_input_search">
+            <input placeholder="ingrese un texto" type="text" id="input" />
+            <button id="button_get"><i class="fa fa-search"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <section id="print_search" class="main_section_searchs">
+            <div id="section_last_search_title">
+                <h2>Ultimos resultados</h2>
+            </div>
+            <div id="section_last_search_result"></div>
+        </section>
+        <section id="print_result" class="main_section_result">
+            <div id="section_result_title">
+                <h2>Gif más populares</h2>
+            </div>
+            <div id="section_search_result"></div>
+        </section>
+    </main>
+
+    <div id="alert-show"></div>
+
+    <!-- <script type="module" src="app.js"></script> -->
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
