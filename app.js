@@ -1,33 +1,16 @@
 let OFFSET = 0;
-const observadorTrendingFunction = new IntersectionObserver((entradas, observer) => {
-    entradas.forEach(entrada => {
-        if (entrada.isIntersecting) {
-            OFFSET += 10;
-            trendingFunction();
-        }
-    })
-}, {
-    rootMargin: '0px 0px 100px 0px',
-    threshold: 1.0
-});
+let lastGifTemplate;
 
-const observadorSearchFunction = new IntersectionObserver((entradas, observer) => {
+const observadorFunction = new IntersectionObserver((entradas, observer) => {
     entradas.forEach(entrada => {
         if (entrada.isIntersecting) {
             OFFSET += 10;
-            searchHistory(valueInput);
-        }
-    })
-}, {
-    rootMargin: '0px 0px 100px 0px',
-    threshold: 1.0
-});
-
-const observadorSearchHistoryFunction = new IntersectionObserver((entradas, observer) => {
-    entradas.forEach(entrada => {
-        if (entrada.isIntersecting) {
-            OFFSET += 10;
-            searchHistory(valueInput);
+            if (valueInput) {
+                searchHistory(valueInput);
+            }
+            else {
+                trendingFunction();
+            }
         }
     })
 }, {
@@ -89,20 +72,19 @@ const figure = (props) => {
 };
 
 const trendingFunction = async () => {
-    OFFSET = 0;
-
     const data = await getData();
-
-    const lastGif = data.pop();
-    const lastGifTemplate = figure(lastGif);
 
     const elem = data.map(item => figure(item));
 
     results.append(...elem);
 
-    observadorTrendingFunction.observe(lastGifTemplate)
+    if (lastGifTemplate) {
+        observadorFunction.unobserve(lastGifTemplate);
+    }
 
-    results.append(lastGifTemplate);
+    lastGifTemplate = elem.pop();
+
+    observadorFunction.observe(lastGifTemplate);
 };
 
 const searchFunction = () => {
@@ -166,15 +148,17 @@ const searchHistory = async (searchParam) => {
         result_title.append(title);
     }
 
-    const lastGif = data.pop();
-    const lastGifTemplate = figure(lastGif);
-
     const elem = data.map(item => figure(item));
+
     results.append(...elem);
 
-    observadorSearchFunction.observe(lastGifTemplate)
+    if (lastGifTemplate) {
+        observadorFunction.unobserve(lastGifTemplate);
+    }
 
-    results.append(lastGifTemplate);
+    lastGifTemplate = elem.pop();
+
+    observadorFunction.observe(lastGifTemplate);
 }
 
 // localstorage Function
